@@ -40,5 +40,5 @@ jobs:
             mkdir test-results
             docker cp tests:/tmp/test-results/coverage.xml test-results
             ls
-      # - store_test_results:
-      #     path: test-results
+      - store_test_results:
+          path: test-results
