@@ -7,6 +7,7 @@ jobs:
 
     environment:
       TEST_RESULTS: /tmp/test-result
+      COMPOSE_FILE: docker-compose-ci.yml
 
     steps:
       - checkout
@@ -20,34 +21,16 @@ jobs:
       - run:
           name: "Docker compose up"
           command: |
-            docker-compose up -d
+            docker-compose -f ${COMPOSE_FILE} up -d
       - run:
           name: "Debug contents"
           command: |
-            docker-compose run django find /src
+            docker-compose -f ${COMPOSE_FILE} run django find /src
       - run:
           name: "Install packages"
           command: |
-            docker-compose run django poetry install
+            docker-compose -f ${COMPOSE_FILE} run django poetry install
       - run:
           name: "Run tests"
           command: |
-            docker-compose run django python -m pytest
-
-
-
-
-  # - run:
-  #     name: Install Docker client
-  #     command: |
-  #       set -x
-  #       VER="17.03.0-ce"
-  #       curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
-  #       tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-  #       sudo mv /tmp/docker/* /usr/bin
-  # - run:
-  #     name: Install Docker Compose
-  #     command: |
-  #       set -x
-  #       curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-  #       chmod +x /usr/local/bin/docker-compose
+            docker-compose -f ${COMPOSE_FILE} run django python -m pytest
