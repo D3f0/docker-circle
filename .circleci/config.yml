@@ -10,11 +10,22 @@ jobs:
 
     steps:
       - checkout
+      # - run:
+      #     name: "Is docker available?"
+      #     command: |
+      #       which docker || echo "No docker"
+      #       which docker-compose || echo "No docker compose"
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
-          name: "Is docker available?"
+          name: "Docker compose up"
           command: |
-            which docker || echo "No docker"
-            which docker-compose || echo "No docker compose"
+            docker-compose up -d
+      - run:
+          name: "Docker Process State"
+          command: |
+            docker ps
+
 
 
 
