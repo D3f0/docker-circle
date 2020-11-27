@@ -24,7 +24,8 @@ jobs:
       - run:
           name: "Docker Process State"
           command: |
-            docker ps
+            docker-compose run django poetry install
+            docker-compose run django python -m pytest
 
 
 
