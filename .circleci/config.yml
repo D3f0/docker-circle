@@ -22,9 +22,16 @@ jobs:
           command: |
             docker-compose up -d
       - run:
-          name: "Docker Process State"
+          name: "Debug contents"
+          command: |
+            docker-compose run django find /src
+      - run:
+          name: "Install packages"
           command: |
             docker-compose run django poetry install
+      - run:
+          name: "Run tests"
+          command: |
             docker-compose run django python -m pytest
 
 
