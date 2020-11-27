@@ -4,3 +4,6 @@ services:
     image: nginx
     ports:
       - "80"
+    environment:
+      A: "B"
+      
