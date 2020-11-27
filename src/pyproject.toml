@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "circular"
+version = "0.1.0"
+description = ""
+authors = ["Nahuel"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.1.3"
+
+# Keep poetry
+packaging = { version='*', optional = true }
+pyparsing = { version='*', optional = true }
+six = { version='*', optional = true }
+pexpect = { version='*', optional = true}
+ptyprocess = { version='*', optional = true}
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+invoke = "^1.4.1"
+ipython = "^7.19.0"
+pytest-cov = "^2.10.1"
+pytest-html = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
