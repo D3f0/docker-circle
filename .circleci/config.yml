@@ -33,12 +33,8 @@ jobs:
       - run:
           name: "Run tests"
           command: |
-            docker-compose -f ${COMPOSE_FILE} run --name tests django python -m pytest
-      - run:
-          name: "Extract test results"
-          command: |
             mkdir test-results
-            docker cp tests:/tmp/test-results/coverage.xml test-results
-            ls
+            docker-compose -f ${COMPOSE_FILE} run -v $PWD/test-results/:/test-results --name tests django python -m pytest
+            ls ./test_results/
       - store_test_results:
           path: test-results
