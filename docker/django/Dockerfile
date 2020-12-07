@@ -37,7 +37,7 @@ RUN groupadd -g ${UID} -r ${USER} && \
     # && chmod +x /entrypoint.sh
 
 # ... and make these location persistable
-VOLUME [ "/home/${USER}/.local", "/home/${USER}/.cache", "/static", "/test-results/"]
+VOLUME [ "/home/${USER}/.local", "/home/${USER}/.cache", "/static", "/test-results"]
 
 
 USER ${USER}
