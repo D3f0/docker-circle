@@ -25,9 +25,10 @@ def poetry_lock(ctx):
     with ctx.cd('./src'):
         ctx.run('poetry lock')
 
+
 @task()
 def docker_test(ctx, name='my-tests'):
-    ctx.run(f'docker-compose run --name {name} django mkdir /tmp/test-results')
-    ctx.run(f'docker-compose run --name {name} django poetry install')
-    ctx.run(f'docker-compose run --name {name} django pytest')
-    ctx.run(f'docker rm {name}')
+    ctx.run(f'docker rm /{name}', warn=True, echo=True)
+    ctx.run(f'docker-compose run --name {name} django mkdir -p /tmp/test-results', echo=True)
+    ctx.run(f'docker-compose run --name {name} django poetry install', echo=True)
+    ctx.run(f'docker-compose run --name {name} django pytest', echo=True)
