@@ -31,7 +31,8 @@ RUN groupadd -g ${UID} -r ${USER} && \
     mkdir -p /home/${USER}/.cache && \
     chown -R ${USER} /home/${USER} && \
     mkdir -p /static && chown ${USER} /static && \
-    mkdir /tmp/test-results && chown ${USER} /tmp/test-results
+    # Test results must be owned by the user
+    mkdir /test-results && chown ${USER} /test-results
 
     # && chmod +x /entrypoint.sh
 
