@@ -9,4 +9,5 @@ def test_bar():
 
 
 def test_ownership():
-    check_output('ls -l /test-results')
+    ls_output = check_output('ls -l /test-results')
+    print(ls_output)
