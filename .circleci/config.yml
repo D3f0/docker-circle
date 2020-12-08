@@ -7,7 +7,7 @@ jobs:
 
     environment:
       TEST_RESULTS: /tmp/test-result
-      COMPOSE_FILE: docker-compose-ci.yml
+      # COMPOSE_FILE: docker-compose-ci.yml
 
     steps:
       - checkout
@@ -16,16 +16,15 @@ jobs:
       - run:
           name: "Docker Compose Build"
           command: |
-            docker-compose -f ${COMPOSE_FILE} build --build-arg UID=$UID
+            docker-compose build --build-arg UID=$UID
       - run:
           name: "Install packages"
           command: |
-            docker-compose -f ${COMPOSE_FILE} run django poetry install
+            docker-compose run django poetry install
       - run:
           name: "Run tests"
           command: |
             mkdir test-results
-            docker-compose -f ${COMPOSE_FILE} run django python -m pytest || exit 0
-            docker-compose -f ${COMPOSE_FILE} run --rm django ls /test-results/
+            docker-compose run django python -m pytest
       - store_test_results:
           path: test-results

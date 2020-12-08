@@ -15,6 +15,7 @@ services:
       - ./src/:/src/
       - cache:/home/circular/.cache
       - local:/home/circular/.local
+      - ./test-results:/test-results/
 volumes:
   cache:
   local:

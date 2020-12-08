@@ -10,11 +10,12 @@ def docker_build(ctx):
 def docker_shell(ctx, service="django", command=""):
     ctx.run(f"docker-compose run --rm {service} {command}", echo=True, pty=True)
 
+
 @task()
 def poetry_add(ctx, package, development=False):
-    with ctx.cd('./src'):
-        args = '' if not development else '-D'
-        ctx.run(f'poetry add {args} {package}', echo=True, pty=True)
+    with ctx.cd("./src"):
+        args = "" if not development else "-D"
+        ctx.run(f"poetry add {args} {package}", echo=True, pty=True)
 
 
 @task()
@@ -22,13 +23,21 @@ def poetry_lock(ctx):
     """
     docstring
     """
-    with ctx.cd('./src'):
-        ctx.run('poetry lock')
+    with ctx.cd("./src"):
+        ctx.run("poetry lock")
 
 
 @task()
-def docker_test(ctx, name='my-tests'):
-    ctx.run(f'docker rm /{name}', warn=True, echo=True)
-    ctx.run(f'docker-compose run --name {name} django mkdir -p /tmp/test-results', echo=True)
-    ctx.run(f'docker-compose run --name {name} django poetry install', echo=True)
-    ctx.run(f'docker-compose run --name {name} django pytest', echo=True)
+def docker_test(ctx, build=False):
+    if not build:
+        ctx.run("docker-compose build django")
+    ctx.run("docker-compose run django python -m pytest")
+
+
+@task()
+def docker_shell(ctx):
+    ctx.run(
+        "docker-compose run --rm django bash",
+        echo=True,
+        pty=True,
+    )
