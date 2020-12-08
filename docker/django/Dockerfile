@@ -9,7 +9,7 @@ ENV POETRY_VERSION=1.1.4 \
 RUN pip install -U pip && pip install poetry==${POETRY_VERSION}
 COPY ./src /src
 WORKDIR /src
-RUN poetry install --no-dev --no-root && rm -rf /root/.cache
+RUN poetry install --no-root && rm -rf /root/.cache
 
 
 ENV ENV=prod \
@@ -33,7 +33,7 @@ RUN groupadd -g ${UID} -r ${USER} && \
     chown -R ${USER} /home/${USER} && \
     mkdir -p /static && chown ${USER} /static && \
     # Test results must be owned by the user
-    mkdir /test-results && chown ${USER} /test-results
+    mkdir /test-results && chown ${USER} -R /test-results
 
     # && chmod +x /entrypoint.sh
 

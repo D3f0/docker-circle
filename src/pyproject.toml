@@ -16,7 +16,7 @@ pexpect = { version='*', optional = true}
 ptyprocess = { version='*', optional = true}
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^6"
 invoke = "^1.4.1"
 ipython = "^7.19.0"
 pytest-cov = "^2.10.1"
